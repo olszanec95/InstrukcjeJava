@@ -1,0 +1,46 @@
+package com.Bryla_Sztywna;
+
+import java.util.Random;
+
+public class Main {
+
+    public static void main(String[] args) {
+	//czesc pierwsza zadania
+        // tworzymy obiekty
+        Point p1=new Point();
+        Point p2=new Point(12.4);
+        double odleglosc = 13.067;
+        p1.momentBezwladnosci(odleglosc);
+        p2.momentBezwladnosci(odleglosc);
+        p1.opisPunktu();
+        p2.opisPunktu();
+        p1.setMasa(14.03);
+        p1.opisPunktu();
+
+        //Nowa czesc zadania tablice punktow
+
+        int iloscElemntow=6;
+        Random r;//zmienna losowa r
+        odleglosc=9.02; //zmiana wartosci dla zroznicowania wynikow
+        Point[] tablicaPunktow= new Point[iloscElemntow];//stworzenie tablicy obiektow i nadanie im mas
+
+        for(int i=0;i<iloscElemntow;i++)
+        {
+            r= new Random() ;
+            tablicaPunktow[i]=new Point(r.nextDouble()*(i+1)+i);
+            tablicaPunktow[i].momentBezwladnosci(odleglosc);
+        }
+        for(int i=0;i<iloscElemntow;i++)
+        {
+            System.out.println("\nObiekt w tablicy numer "+i);
+            tablicaPunktow[i].opisPunktu();
+        }
+
+        //Zadanie dodatkowe tworzenie bryly sztywnej
+        System.out.println();
+        int liczbaPunktow=7;
+        Body bryla=new Body(liczbaPunktow);
+        bryla.DaneBryly();
+
+    }
+}
