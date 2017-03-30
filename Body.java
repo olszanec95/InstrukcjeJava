@@ -1,0 +1,69 @@
+package com.Bryla_Sztywna;
+
+import java.util.Random;
+
+/**
+ * Created by Notebook on 2017-03-17.
+ */
+public class Body {
+    private double momentX=0,momentY=0;
+
+
+    //prywatne funkcje do obliczania momentwu wzgl osi rownoleglych do x i y pojedynczych punktow
+    private static double momentWzglX(double masa,double wsp,double x)
+    {
+        return masa*Math.pow((x-wsp),2);
+    }
+    private static double momentWzglY(double masa,double wsp,double y)
+    {
+        return masa*Math.pow((y-wsp),2);
+    }
+
+    //wypisuje wartosci momentu bryly wzgl osi w srodku ciezkosci
+    public void DaneBryly()
+    {
+        System.out.println("Moment Bryly wzgl osi Xc = "+momentX);
+        System.out.println("Moment Bryly wzgl osi Yc = "+momentY);
+
+    }
+    private  void momentWzglSrodkaCiezkosci(int ilosc, Point[] tablica)
+    {
+        double xn=0,yn=0,MasaCalk=0;
+
+        for(int i =0;i < ilosc;i++)
+        {
+            MasaCalk = MasaCalk + (tablica[i].getMasa());
+            xn = (tablica[i].getMasa()) * tablica[i].x;
+            yn = (tablica[i].getMasa()) * tablica[i].y;
+        }
+        //oblicznanie wsp srodka ciezkosci ze wzoru
+        xn=xn/MasaCalk;
+        yn=yn/MasaCalk;
+        //obliczanie momentow bryly wzgl osi
+        for(int i =0;i < ilosc;i++)
+        {
+            this.momentX=momentX+momentWzglX((tablica[i].getMasa()),xn,tablica[i].x);
+            this.momentY=momentY+momentWzglY((tablica[i].getMasa()),yn,tablica[i].y);
+        }
+
+    }
+    Body(int iloscElementow)
+    {   //stworzenie
+        Point[] tablica= new Point[iloscElementow];
+        //stworzenie tablicy obiektow i nadanie im mas
+        for(int i=0;i<iloscElementow;i++)
+        {
+            //r zmienna losowa
+            //nadanie losowych mas punktom i ich wsp
+            Random r=new Random() ;
+            double masa=r.nextDouble()*(i+1)+i;
+            double wsp=r.nextDouble()*(i+1);
+            tablica[i]=new Point(masa);
+            tablica[i].x=wsp;
+            wsp=r.nextDouble()*(i+1);
+            tablica[i].y=wsp;
+        }
+        this.momentWzglSrodkaCiezkosci(iloscElementow,tablica);
+    }
+
+}

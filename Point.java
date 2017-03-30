@@ -1,0 +1,58 @@
+package com.Bryla_Sztywna;
+
+/**
+ * Created by Notebook on 2017-03-17.
+ */
+public class Point {
+    protected double masa,odleglosc;
+    protected double momentSteiner;
+    protected double moment;
+    protected double x,y;
+
+    private double momentBezwladnosci()
+    {   //obliczanie glownego momentu bezwladnosci wzgl srodka co rowne zero
+        this.moment=this.masa*Math.pow(0,2);
+        return this.moment;
+
+    }
+    public void momentBezwladnosci(double odleglosc)
+    {   //obliczanie momentu bezwladnosci wzgl nowej osi
+        this.odleglosc=odleglosc;
+        this.momentSteiner=this.moment+this.masa*Math.pow(this.odleglosc,2);
+    }
+    public void opisPunktu()
+    {   //wypisywanie wiadomosci o precie
+        if(this.odleglosc!=0)
+            System.out.println("Punkt o wadze "+this.masa+" Glowny moment bezwladnosci "
+                    +this.moment+" Twierdzenie Steinera "+this.momentSteiner);
+        else
+            System.out.println("Punkt o wadze "+this.masa+" Glowny moment bezwladnosci "
+                    +this.moment+" Twierdzenie Steinera -brak nowej osi");
+    }
+    //akcesory
+    public void setMasa(double masa)
+    {
+        this.masa=masa;
+        this.momentBezwladnosci();
+        if(this.odleglosc!=0)
+            this.momentBezwladnosci(this.odleglosc);
+    }
+    public double getMasa()
+    {
+        return this.masa;
+    }
+
+    Point()
+    {   //konstruktor z domniemana masa = 10
+        this.masa=10;
+
+        this.momentBezwladnosci();
+    }
+
+    Point(double masa)
+    {   // konstruktor z podana masa
+        this.masa=masa;
+
+        this.momentBezwladnosci();
+    }
+}
